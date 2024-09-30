@@ -5,7 +5,7 @@ Donate link: https://scriptstown.com/
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,13 +13,13 @@ Add a contact form and receive new message notifications directly to your WordPr
 
 == Description ==
 
-**Contact Form Query** adds a contact form to your WordPress site and allows you to receive new message notifications to your specified email address and also to the WordPress Admin Panel. The plugin adds a dashboard widget where the site admin can quickly view details of the latest messages received in the WordPress dashboard itself. It includes a dedicated page to view all the contact form entries.
+**Contact Form Query** plugin adds a contact form to your WordPress site and allows you to receive new message notifications to your specified email address and also to the WordPress Admin Panel. The plugin adds a dashboard widget where the site admins can quickly view details of the latest messages received in the WordPress dashboard itself. Also, the plugin provides a dedicated page to filter and view all the contact form entries.
 
-To prevent spam entries in the form submissions, this plugin allows you to block messages based on blacklisted keywords so you can input specific keywords to easily block certain types of spam messages. Also, it supports **captcha** security features like Cloudflare **Turnstile** and Google **reCAPTCHA**.
+To prevent spam entries in the contact form submissions, the plugin allows you to block messages based on blacklisted keywords. In this way, you can input specific keywords to easily block certain types of spam messages. In addition, the plugin supports **captcha** security features like Cloudflare **Turnstile** and Google **reCAPTCHA**.
 
-The design of the contact form and its elements can easily adapt to your website's theme design for a cohesive appearance. You can choose a compact design layout for the form. Also, it allows you to reorder the form fields, adjust field labels, and indicate which fields are required or optional.
+The design of the contact form and its elements can easily adapt to your website theme design for a cohesive appearance. You can choose a **compact** design layout or a default layout for the contact form. The default layout would match the styles of your theme form design. You can customize the colors of feedback or validation messages. The plugin allows you to reorder the contact form fields, adjust field labels, and indicate which fields are required or optional.
 
-It supports **filtering** and **searching** of messages in the WordPress admin panel. Also, you can add an extra note to a message for future reference or mark them as answered. You can search any specific messages using notes, email addresses, subjects, or message content.
+The plugin supports **filtering** and **searching** of messages in the WordPress admin panel. You can add an extra note to a message entry for future reference or mark them as answered. In the listing page of the form entries, you can quickly search for any specific messages using notes, subjects, email addresses, or message content.
 
 ### Contact Form Query Features
 
@@ -66,6 +66,10 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 9. Latest Messages Dashboard Widget
 
 == Changelog ==
+
+= 1.8.2 =
+* Tested up to 6.6.2.
+* Readme updated.
 
 = 1.8.1 =
 * Tested up to 6.6.
