@@ -16,7 +16,7 @@ class STCFQ_Form {
 
 			$error_message = esc_html__( 'Error occurred while sending your message. Please try again after some time.', 'contact-form-query' );
 
-			if ( ! isset( $_POST['save-contact'] ) || ! wp_verify_nonce( $_POST['save-contact'], 'save-contact' ) ) {
+			if ( ! isset( $_POST['save-contact'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-contact'] ) ), 'save-contact' ) ) {
 				die();
 			}
 
@@ -33,7 +33,7 @@ class STCFQ_Form {
 							array(
 								'body' => array(
 									'secret'   => $google_recaptcha_v2['secret_key'],
-									'response' => $_POST['g-recaptcha-response'],
+									'response' => sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ),
 								),
 							)
 						);
@@ -57,7 +57,7 @@ class STCFQ_Form {
 							array(
 								'body' => array(
 									'secret'   => $cf_turnstile['secret_key'],
-									'response' => $_POST['cf-turnstile-response'],
+									'response' => sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) ),
 								),
 							)
 						);
@@ -85,16 +85,16 @@ class STCFQ_Form {
 
 			foreach ( $contact_fields as $key => $field ) {
 				if ( 'name' === $field['name'] ) {
-					$name_enabled = (bool) $field['enable'];
+					$name_enabled  = (bool) $field['enable'];
 					$name_required = (bool) $field['required'];
 				} elseif ( 'email' === $field['name'] ) {
-					$email_enabled = (bool) $field['enable'];
+					$email_enabled  = (bool) $field['enable'];
 					$email_required = (bool) $field['required'];
 				} elseif ( 'subject' === $field['name'] ) {
-					$subject_enabled = (bool) $field['enable'];
+					$subject_enabled  = (bool) $field['enable'];
 					$subject_required = (bool) $field['required'];
 				} elseif ( 'message' === $field['name'] ) {
-					$message_enabled = (bool) $field['enable'];
+					$message_enabled  = (bool) $field['enable'];
 					$message_required = (bool) $field['required'];
 				}
 			}
@@ -103,39 +103,35 @@ class STCFQ_Form {
 
 			$name = '';
 			if ( ! isset( $name_enabled ) || $name_enabled ) {
-				if ( $name_required && ( ! isset( $_POST['name'] ) || empty( trim( $_POST['name'] ) ) ) ) {
+				$name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+				if ( $name_required && ( '' === $name ) ) {
 					$errors['name'] = esc_html__( 'Please provide your name.', 'contact-form-query' );
-				} else {
-					$name = sanitize_text_field( $_POST['name'] );
 				}
 			}
 
 			$email = '';
 			if ( ! isset( $email_enabled ) || $email_enabled ) {
-				if ( $email_required && ( ! isset( $_POST['email'] ) || empty( trim( $_POST['email'] ) ) ) ) {
+				$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
+				if ( $email_required && ( '' === $email ) ) {
 					$errors['email'] = esc_html__( 'Please provide your email.', 'contact-form-query' );
-				} elseif ( ! empty( trim( $_POST['email'] ) ) && ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
+				} elseif ( ( '' !== $email ) && ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 					$errors['email'] = esc_html__( 'Please provide a valid email.', 'contact-form-query' );
-				} else {
-					$email = sanitize_email( $_POST['email'] );
 				}
 			}
 
 			$subject = '';
 			if ( ! isset( $subject_enabled ) || $subject_enabled ) {
-				if ( $subject_required && ( ! isset( $_POST['subject'] ) || empty( trim( $_POST['subject'] ) ) ) ) {
+				$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
+				if ( $subject_required && ( '' === $subject ) ) {
 					$errors['subject'] = esc_html__( 'Please specify subject.', 'contact-form-query' );
-				} else {
-					$subject = sanitize_text_field( $_POST['subject'] );
 				}
 			}
 
 			$message = '';
 			if ( ! isset( $message_enabled ) || $message_enabled ) {
-				if ( $message_required && ( ! isset( $_POST['message'] ) || empty( trim( $_POST['message'] ) ) ) ) {
+				$message = isset( $_POST['message'] ) ? sanitize_text_field( wp_unslash( $_POST['message'] ) ) : '';
+				if ( $message_required && ( '' === $message ) ) {
 					$errors['message'] = esc_html__( 'Please provide your message.', 'contact-form-query' );
-				} else {
-					$message = sanitize_text_field( $_POST['message'] );
 				}
 			}
 
@@ -173,7 +169,7 @@ class STCFQ_Form {
 					'created_at' => STCFQ_Helper::now(),
 				);
 
-				$success = $wpdb->insert( "{$wpdb->prefix}stcfq_queries", $data );
+				$success = $wpdb->insert( "{$wpdb->prefix}stcfq_queries", $data ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 
 				$buffer = ob_get_clean();
 				if ( ! empty( $buffer ) ) {

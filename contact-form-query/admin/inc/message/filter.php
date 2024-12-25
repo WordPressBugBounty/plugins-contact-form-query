@@ -12,7 +12,12 @@ defined( 'ABSPATH' ) || die();
 		if ( $filter_items_count > 0 ) {
 			foreach ( $search_key as $key => $value ) {
 				$search_field = sanitize_text_field( wp_unslash( $value ) );
-				$search_value = isset( $_POST['search_value'][ $key ] ) ? sanitize_text_field( wp_unslash( $_POST['search_value'][ $key ] ) ) : ''; ?>
+				if ( isset( $_POST['apply-filter'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['apply-filter'] ) ), 'apply-filter' ) ) {
+					$search_value = isset( $_POST['search_value'][ $key ] ) ? sanitize_text_field( wp_unslash( $_POST['search_value'][ $key ] ) ) : '';
+				} else {
+					$search_value = '';
+				}
+				?>
 				<div class="stcfq-filter-item">
 					<select name="search_key[]">
 						<option value="subject" <?php selected( $search_field, 'subject', true ); ?>>

@@ -47,24 +47,24 @@ class STCFQ_Setting {
 			die();
 		}
 
-		if ( ! isset( $_POST['save-form-fields'] ) || ! wp_verify_nonce( $_POST['save-form-fields'], 'save-form-fields' ) ) {
+		if ( ! isset( $_POST['save-form-fields'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-form-fields'] ) ), 'save-form-fields' ) ) {
 			die();
 		}
 
 		$enable_name    = isset( $_POST['enable_name'] ) ? (bool) $_POST['enable_name'] : true;
-		$enable_email   = isset( $_POST['enable_email'] ) ? (bool) $_POST['enable_email']  : true;
+		$enable_email   = isset( $_POST['enable_email'] ) ? (bool) $_POST['enable_email'] : true;
 		$enable_subject = isset( $_POST['enable_subject'] ) ? (bool) $_POST['enable_subject'] : true;
 		$enable_message = isset( $_POST['enable_message'] ) ? (bool) $_POST['enable_message'] : true;
 
-		$label_name    = isset( $_POST['label_name'] ) ? sanitize_text_field( $_POST['label_name'] ) : '';
-		$label_email   = isset( $_POST['label_email'] ) ? sanitize_text_field( $_POST['label_email'] ) : '';
-		$label_subject = isset( $_POST['label_subject'] ) ? sanitize_text_field( $_POST['label_subject'] ) : '';
-		$label_message = isset( $_POST['label_message'] ) ? sanitize_text_field( $_POST['label_message'] ) : '';
+		$label_name    = isset( $_POST['label_name'] ) ? sanitize_text_field( wp_unslash( $_POST['label_name'] ) ) : '';
+		$label_email   = isset( $_POST['label_email'] ) ? sanitize_text_field( wp_unslash( $_POST['label_email'] ) ) : '';
+		$label_subject = isset( $_POST['label_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['label_subject'] ) ) : '';
+		$label_message = isset( $_POST['label_message'] ) ? sanitize_text_field( wp_unslash( $_POST['label_message'] ) ) : '';
 
-		$classes_name    = isset( $_POST['classes_name'] ) ? sanitize_text_field( $_POST['classes_name'] ) : '';
-		$classes_email   = isset( $_POST['classes_email'] ) ? sanitize_text_field( $_POST['classes_email'] ) : '';
-		$classes_subject = isset( $_POST['classes_subject'] ) ? sanitize_text_field( $_POST['classes_subject'] ) : '';
-		$classes_message = isset( $_POST['classes_message'] ) ? sanitize_text_field( $_POST['classes_message'] ) : '';
+		$classes_name    = isset( $_POST['classes_name'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_name'] ) ) : '';
+		$classes_email   = isset( $_POST['classes_email'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_email'] ) ) : '';
+		$classes_subject = isset( $_POST['classes_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_subject'] ) ) : '';
+		$classes_message = isset( $_POST['classes_message'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_message'] ) ) : '';
 
 		$required_name    = isset( $_POST['required_name'] ) ? (bool) $_POST['required_name'] : true;
 		$required_email   = isset( $_POST['required_email'] ) ? (bool) $_POST['required_email'] : true;
@@ -72,17 +72,17 @@ class STCFQ_Setting {
 		$required_message = isset( $_POST['required_message'] ) ? (bool) $_POST['required_message'] : true;
 
 		$enable_consent  = isset( $_POST['enable_consent'] ) ? (bool) $_POST['enable_consent'] : false;
-		$text_consent    = isset( $_POST['text_consent'] ) ? sanitize_text_field( $_POST['text_consent'] ) : '';
-		$classes_consent = isset( $_POST['classes_consent'] ) ? sanitize_text_field( $_POST['classes_consent'] ) : '';
-		$msg_consent     = isset( $_POST['msg_consent'] ) ? sanitize_text_field( $_POST['msg_consent'] ) : '';
+		$text_consent    = isset( $_POST['text_consent'] ) ? sanitize_text_field( wp_unslash( $_POST['text_consent'] ) ) : '';
+		$classes_consent = isset( $_POST['classes_consent'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_consent'] ) ) : '';
+		$msg_consent     = isset( $_POST['msg_consent'] ) ? sanitize_text_field( wp_unslash( $_POST['msg_consent'] ) ) : '';
 
-		$text_button           = isset( $_POST['text_button'] ) ? sanitize_text_field( $_POST['text_button'] ) : '';
-		$parent_classes_button = isset( $_POST['parent_classes_button'] ) ? sanitize_text_field( $_POST['parent_classes_button'] ) : '';
-		$classes_button        = isset( $_POST['classes_button'] ) ? sanitize_text_field( $_POST['classes_button'] ) : '';
+		$text_button           = isset( $_POST['text_button'] ) ? sanitize_text_field( wp_unslash( $_POST['text_button'] ) ) : '';
+		$parent_classes_button = isset( $_POST['parent_classes_button'] ) ? sanitize_text_field( wp_unslash( $_POST['parent_classes_button'] ) ) : '';
+		$classes_button        = isset( $_POST['classes_button'] ) ? sanitize_text_field( wp_unslash( $_POST['classes_button'] ) ) : '';
 
-		$order = ( isset( $_POST['order'] ) && is_array( $_POST['order'] ) ) ? array_map( 'sanitize_text_field', $_POST['order'] ) : array();
+		$order = ( isset( $_POST['order'] ) && is_array( $_POST['order'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['order'] ) ) : array();
 
-		$success_message = isset( $_POST['success_message'] ) ? sanitize_text_field( $_POST['success_message'] ) : '';
+		$success_message = isset( $_POST['success_message'] ) ? sanitize_text_field( wp_unslash( $_POST['success_message'] ) ) : '';
 
 		if ( empty( $label_name ) ) {
 			$label_name = esc_html__( 'Your Name', 'contact-form-query' );
@@ -162,11 +162,11 @@ class STCFQ_Setting {
 			die();
 		}
 
-		if ( ! isset( $_POST['save-layout'] ) || ! wp_verify_nonce( $_POST['save-layout'], 'save-layout' ) ) {
+		if ( ! isset( $_POST['save-layout'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-layout'] ) ), 'save-layout' ) ) {
 			die();
 		}
 
-		$layout = isset( $_POST['layout'] ) ? sanitize_text_field( $_POST['layout'] ) : STCFQ_Helper::default_layout();
+		$layout = isset( $_POST['layout'] ) ? sanitize_text_field( wp_unslash( $_POST['layout'] ) ) : STCFQ_Helper::default_layout();
 
 		if ( ! in_array( $layout, array_keys( STCFQ_Helper::layout_list() ) ) ) {
 			$layout = STCFQ_Helper::default_layout();
@@ -174,16 +174,16 @@ class STCFQ_Setting {
 
 		update_option( 'stcfq_layout', $layout, true );
 
-		$success_background_color = isset( $_POST['success_background_color'] ) ? sanitize_text_field( $_POST['success_background_color'] ) : '';
-		$success_border_color     = isset( $_POST['success_border_color'] ) ? sanitize_text_field( $_POST['success_border_color'] ) : '';
-		$success_font_color       = isset( $_POST['success_font_color'] ) ? sanitize_text_field( $_POST['success_font_color'] ) : '';
+		$success_background_color = isset( $_POST['success_background_color'] ) ? sanitize_text_field( wp_unslash( $_POST['success_background_color'] ) ) : '';
+		$success_border_color     = isset( $_POST['success_border_color'] ) ? sanitize_text_field( wp_unslash( $_POST['success_border_color'] ) ) : '';
+		$success_font_color       = isset( $_POST['success_font_color'] ) ? sanitize_text_field( wp_unslash( $_POST['success_font_color'] ) ) : '';
 
-		$error_background_color   = isset( $_POST['error_background_color'] ) ? sanitize_text_field( $_POST['error_background_color'] ) : '';
-		$error_border_color       = isset( $_POST['error_border_color'] ) ? sanitize_text_field( $_POST['error_border_color'] ) : '';
-		$error_font_color         = isset( $_POST['error_font_color'] ) ? sanitize_text_field( $_POST['error_font_color'] ) : '';
+		$error_background_color = isset( $_POST['error_background_color'] ) ? sanitize_text_field( wp_unslash( $_POST['error_background_color'] ) ) : '';
+		$error_border_color     = isset( $_POST['error_border_color'] ) ? sanitize_text_field( wp_unslash( $_POST['error_border_color'] ) ) : '';
+		$error_font_color       = isset( $_POST['error_font_color'] ) ? sanitize_text_field( wp_unslash( $_POST['error_font_color'] ) ) : '';
 
-		$validation_error_color        = isset( $_POST['validation_error_color'] ) ? sanitize_text_field( $_POST['validation_error_color'] ) : '';
-		$validation_error_border_color = isset( $_POST['validation_error_border_color'] ) ? sanitize_text_field( $_POST['validation_error_border_color'] ) : '';
+		$validation_error_color        = isset( $_POST['validation_error_color'] ) ? sanitize_text_field( wp_unslash( $_POST['validation_error_color'] ) ) : '';
+		$validation_error_border_color = isset( $_POST['validation_error_border_color'] ) ? sanitize_text_field( wp_unslash( $_POST['validation_error_border_color'] ) ) : '';
 
 		$design = array(
 			'success_background_color'      => $success_background_color,
@@ -206,21 +206,21 @@ class STCFQ_Setting {
 			die();
 		}
 
-		if ( ! isset( $_POST['save-captcha'] ) || ! wp_verify_nonce( $_POST['save-captcha'], 'save-captcha' ) ) {
+		if ( ! isset( $_POST['save-captcha'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-captcha'] ) ), 'save-captcha' ) ) {
 			die();
 		}
 
-		$captcha = isset( $_POST['captcha'] ) ? sanitize_text_field( $_POST['captcha'] ) : '';
+		$captcha = isset( $_POST['captcha'] ) ? sanitize_text_field( wp_unslash( $_POST['captcha'] ) ) : '';
 
-		$google_recaptcha_v2_site_key   = isset( $_POST['google_recaptcha_v2_site_key'] ) ? sanitize_text_field( $_POST['google_recaptcha_v2_site_key'] ) : '';
-		$google_recaptcha_v2_secret_key = isset( $_POST['google_recaptcha_v2_secret_key'] ) ? sanitize_text_field( $_POST['google_recaptcha_v2_secret_key'] ) : '';
-		$google_recaptcha_v2_theme      = isset( $_POST['google_recaptcha_v2_theme'] ) ? sanitize_text_field( $_POST['google_recaptcha_v2_theme'] ) : 'light';
+		$google_recaptcha_v2_site_key   = isset( $_POST['google_recaptcha_v2_site_key'] ) ? sanitize_text_field( wp_unslash( $_POST['google_recaptcha_v2_site_key'] ) ) : '';
+		$google_recaptcha_v2_secret_key = isset( $_POST['google_recaptcha_v2_secret_key'] ) ? sanitize_text_field( wp_unslash( $_POST['google_recaptcha_v2_secret_key'] ) ) : '';
+		$google_recaptcha_v2_theme      = isset( $_POST['google_recaptcha_v2_theme'] ) ? sanitize_text_field( wp_unslash( $_POST['google_recaptcha_v2_theme'] ) ) : 'light';
 
-		$cf_turnstile_site_key   = isset( $_POST['cf_turnstile_site_key'] ) ? sanitize_text_field( $_POST['cf_turnstile_site_key'] ) : '';
-		$cf_turnstile_secret_key = isset( $_POST['cf_turnstile_secret_key'] ) ? sanitize_text_field( $_POST['cf_turnstile_secret_key'] ) : '';
-		$cf_turnstile_theme      = isset( $_POST['cf_turnstile_theme'] ) ? sanitize_text_field( $_POST['cf_turnstile_theme'] ) : 'light';
+		$cf_turnstile_site_key   = isset( $_POST['cf_turnstile_site_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cf_turnstile_site_key'] ) ) : '';
+		$cf_turnstile_secret_key = isset( $_POST['cf_turnstile_secret_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cf_turnstile_secret_key'] ) ) : '';
+		$cf_turnstile_theme      = isset( $_POST['cf_turnstile_theme'] ) ? sanitize_text_field( wp_unslash( $_POST['cf_turnstile_theme'] ) ) : 'light';
 
-		$block_keywords = isset( $_POST['block_keywords'] ) ? sanitize_textarea_field( $_POST['block_keywords'] ) : '';
+		$block_keywords = isset( $_POST['block_keywords'] ) ? sanitize_textarea_field( wp_unslash( $_POST['block_keywords'] ) ) : '';
 
 		if ( ! in_array( $captcha, array_keys( STCFQ_Helper::captcha_list() ) ) ) {
 			$captcha = '';
@@ -258,22 +258,24 @@ class STCFQ_Setting {
 			die();
 		}
 
-		if ( ! isset( $_POST['save-email'] ) || ! wp_verify_nonce( $_POST['save-email'], 'save-email' ) ) {
+		if ( ! isset( $_POST['save-email'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-email'] ) ), 'save-email' ) ) {
 			die();
 		}
 
-		$carrier = isset( $_POST['email_carrier'] ) ? sanitize_text_field( $_POST['email_carrier'] ) : 'wp_mail';
+		$carrier = isset( $_POST['email_carrier'] ) ? sanitize_text_field( wp_unslash( $_POST['email_carrier'] ) ) : 'wp_mail';
 
-		$wp_mail_from_name = isset( $_POST['wp_mail_from_name'] ) ? sanitize_text_field( $_POST['wp_mail_from_name'] ) : '';
+		$wp_mail_from_name  = isset( $_POST['wp_mail_from_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_mail_from_name'] ) ) : '';
+		$wp_mail_from_email = isset( $_POST['wp_mail_from_email'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_mail_from_email'] ) ) : '';
 
-		$smtp_from_name  = isset( $_POST['smtp_from_name'] ) ? sanitize_text_field( $_POST['smtp_from_name'] ) : '';
-		$smtp_host       = isset( $_POST['smtp_host'] ) ? sanitize_text_field( $_POST['smtp_host'] ) : '';
-		$smtp_username   = isset( $_POST['smtp_username'] ) ? sanitize_text_field( $_POST['smtp_username'] ) : '';
-		$smtp_password   = isset( $_POST['smtp_password'] ) ? $_POST['smtp_password'] : '';
-		$smtp_encryption = isset( $_POST['smtp_encryption'] ) ? sanitize_text_field( $_POST['smtp_encryption'] ) : '';
-		$smtp_port       = isset( $_POST['smtp_port'] ) ? sanitize_text_field( $_POST['smtp_port'] ) : '';
+		$smtp_from_name  = isset( $_POST['smtp_from_name'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_from_name'] ) ) : '';
+		$smtp_host       = isset( $_POST['smtp_host'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_host'] ) ) : '';
+		$smtp_username   = isset( $_POST['smtp_username'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_username'] ) ) : '';
+		$smtp_password   = isset( $_POST['smtp_password'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_password'] ) ) : '';
+		$smtp_encryption = isset( $_POST['smtp_encryption'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_encryption'] ) ) : '';
+		$smtp_port       = isset( $_POST['smtp_port'] ) ? sanitize_text_field( wp_unslash( $_POST['smtp_port'] ) ) : '';
 
 		$to_admin_enable = isset( $_POST['to_admin_enable'] ) ? (bool) $_POST['to_admin_enable'] : true;
+		$to_admin_email  = isset( $_POST['to_admin_email'] ) ? sanitize_text_field( wp_unslash( $_POST['to_admin_email'] ) ) : '';
 
 		if ( ! in_array( $carrier, array_keys( STCFQ_Helper::email_carrier_list() ) ) ) {
 			$carrier = 'wp_mail';
@@ -281,16 +283,12 @@ class STCFQ_Setting {
 
 		$errors = array();
 
-		if ( ! empty( trim( $_POST['wp_mail_from_email'] ) ) && ! filter_var( $_POST['wp_mail_from_email'], FILTER_VALIDATE_EMAIL ) ) {
+		if ( ! empty( trim( $wp_mail_from_email ) ) && ! filter_var( $wp_mail_from_email, FILTER_VALIDATE_EMAIL ) ) {
 			$errors['wp_mail_from_email'] = esc_html__( 'Please provide a valid email.', 'contact-form-query' );
-		} else {
-			$wp_mail_from_email = sanitize_email( $_POST['wp_mail_from_email'] );
 		}
 
-		if ( ! empty( trim( $_POST['to_admin_email'] ) ) && ! filter_var( $_POST['to_admin_email'], FILTER_VALIDATE_EMAIL ) ) {
+		if ( ! empty( trim( $to_admin_email ) ) && ! filter_var( $to_admin_email, FILTER_VALIDATE_EMAIL ) ) {
 			$errors['to_admin_email'] = esc_html__( 'Please provide a valid email.', 'contact-form-query' );
-		} else {
-			$to_admin_email = sanitize_email( $_POST['to_admin_email'] );
 		}
 
 		if ( count( $errors ) < 1 ) {
@@ -332,7 +330,7 @@ class STCFQ_Setting {
 			die();
 		}
 
-		if ( ! isset( $_POST['save-uninstall-setting'] ) || ! wp_verify_nonce( $_POST['save-uninstall-setting'], 'save-uninstall-setting' ) ) {
+		if ( ! isset( $_POST['save-uninstall-setting'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save-uninstall-setting'] ) ), 'save-uninstall-setting' ) ) {
 			die();
 		}
 

@@ -1,15 +1,15 @@
 # Copyright (C) 2024 ScriptsTown
-# This file is distributed under the same license as the Contact Form Query plugin.
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contact Form Query 1.8.3\n"
+"Project-Id-Version: Contact Form Query 1.8.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contact-form-query\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-22T23:09:51+00:00\n"
+"POT-Creation-Date: 2024-12-25T10:48:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: contact-form-query\n"
@@ -104,22 +104,22 @@ msgid "Your Email"
 msgstr ""
 
 #: admin/inc/class-stcfq-setting.php:94
-#: admin/inc/message/filter.php:19
-#: admin/inc/message/filter.php:47
+#: admin/inc/message/filter.php:24
+#: admin/inc/message/filter.php:52
 #: admin/inc/message/index.php:38
 #: admin/inc/message/load.php:45
-#: admin/inc/message/view.php:32
+#: admin/inc/message/view.php:33
 #: includes/class-stcfq-helper.php:33
 msgid "Subject"
 msgstr ""
 
 #: admin/inc/class-stcfq-setting.php:97
-#: admin/inc/message/filter.php:28
-#: admin/inc/message/filter.php:50
+#: admin/inc/message/filter.php:33
+#: admin/inc/message/filter.php:55
 #: admin/inc/message/index.php:39
 #: admin/inc/message/load.php:48
-#: admin/inc/message/view.php:25
-#: admin/inc/message/view.php:36
+#: admin/inc/message/view.php:26
+#: admin/inc/message/view.php:37
 #: includes/class-stcfq-helper.php:41
 msgid "Message"
 msgstr ""
@@ -135,12 +135,12 @@ msgstr ""
 #: admin/inc/class-stcfq-setting.php:157
 #: admin/inc/class-stcfq-setting.php:201
 #: admin/inc/class-stcfq-setting.php:253
-#: admin/inc/class-stcfq-setting.php:324
-#: admin/inc/class-stcfq-setting.php:343
+#: admin/inc/class-stcfq-setting.php:322
+#: admin/inc/class-stcfq-setting.php:341
 msgid "Setting saved."
 msgstr ""
 
-#: admin/inc/class-stcfq-setting.php:285
+#: admin/inc/class-stcfq-setting.php:287
 #: admin/inc/class-stcfq-setting.php:291
 #: public/inc/class-stcfq-form.php:118
 msgid "Please provide a valid email."
@@ -150,44 +150,44 @@ msgstr ""
 msgid "Search & Filter Messages"
 msgstr ""
 
-#: admin/inc/message/filter.php:22
-#: admin/inc/message/filter.php:48
+#: admin/inc/message/filter.php:27
+#: admin/inc/message/filter.php:53
 #: admin/inc/message/index.php:40
 #: admin/inc/message/load.php:51
-#: admin/inc/message/view.php:40
+#: admin/inc/message/view.php:41
 msgid "Name"
 msgstr ""
 
-#: admin/inc/message/filter.php:25
-#: admin/inc/message/filter.php:49
+#: admin/inc/message/filter.php:30
+#: admin/inc/message/filter.php:54
 #: admin/inc/message/index.php:41
 #: admin/inc/message/load.php:54
-#: admin/inc/message/view.php:44
+#: admin/inc/message/view.php:45
 #: admin/inc/setting/index.php:10
 msgid "Email"
 msgstr ""
 
-#: admin/inc/message/filter.php:31
-#: admin/inc/message/filter.php:51
+#: admin/inc/message/filter.php:36
+#: admin/inc/message/filter.php:56
 msgid "Answered (Y or N)"
 msgstr ""
 
-#: admin/inc/message/filter.php:34
-#: admin/inc/message/filter.php:52
-#: admin/inc/message/view.php:52
-#: admin/inc/message/view.php:93
+#: admin/inc/message/filter.php:39
+#: admin/inc/message/filter.php:57
+#: admin/inc/message/view.php:53
+#: admin/inc/message/view.php:94
 msgid "Note"
 msgstr ""
 
-#: admin/inc/message/filter.php:64
+#: admin/inc/message/filter.php:69
 msgid "Add more"
 msgstr ""
 
-#: admin/inc/message/filter.php:65
+#: admin/inc/message/filter.php:70
 msgid "Apply filter"
 msgstr ""
 
-#: admin/inc/message/filter.php:67
+#: admin/inc/message/filter.php:72
 msgid "Reset filter"
 msgstr ""
 
@@ -230,12 +230,12 @@ msgstr ""
 
 #: admin/inc/message/index.php:42
 #: admin/inc/message/load.php:57
-#: admin/inc/message/view.php:48
+#: admin/inc/message/view.php:49
 msgid "Answered"
 msgstr ""
 
 #: admin/inc/message/index.php:43
-#: admin/inc/message/view.php:56
+#: admin/inc/message/view.php:57
 msgid "Timestamp"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: admin/inc/message/index.php:87
+#: admin/inc/message/index.php:92
 msgid "No more messages."
 msgstr ""
 
@@ -261,7 +261,7 @@ msgid "Select"
 msgstr ""
 
 #: admin/inc/message/load.php:60
-#: admin/inc/message/view.php:49
+#: admin/inc/message/view.php:50
 #: admin/inc/setting/tabs/email.php:167
 #: admin/inc/setting/tabs/form-fields.php:55
 #: admin/inc/setting/tabs/form-fields.php:81
@@ -270,7 +270,7 @@ msgid "Yes"
 msgstr ""
 
 #: admin/inc/message/load.php:62
-#: admin/inc/message/view.php:49
+#: admin/inc/message/view.php:50
 #: admin/inc/setting/tabs/email.php:172
 #: admin/inc/setting/tabs/form-fields.php:60
 #: admin/inc/setting/tabs/form-fields.php:86
@@ -286,21 +286,21 @@ msgstr ""
 msgid "Are you sure to delete this message?"
 msgstr ""
 
-#: admin/inc/message/view.php:74
-#: admin/inc/message/view.php:78
-#: admin/inc/message/view.php:82
+#: admin/inc/message/view.php:75
+#: admin/inc/message/view.php:79
+#: admin/inc/message/view.php:83
 msgid "Is Answered?"
 msgstr ""
 
-#: admin/inc/message/view.php:85
+#: admin/inc/message/view.php:86
 msgid "Mark this message as \"Answered\"."
 msgstr ""
 
-#: admin/inc/message/view.php:98
+#: admin/inc/message/view.php:99
 msgid "Enter any extra note."
 msgstr ""
 
-#: admin/inc/message/view.php:106
+#: admin/inc/message/view.php:107
 #: admin/inc/setting/tabs/captcha.php:179
 #: admin/inc/setting/tabs/design.php:120
 #: admin/inc/setting/tabs/email.php:192
@@ -756,7 +756,7 @@ msgstr ""
 msgid "<strong>ERROR:</strong> Please confirm you are not a robot."
 msgstr ""
 
-#: public/inc/class-stcfq-form.php:107
+#: public/inc/class-stcfq-form.php:108
 msgid "Please provide your name."
 msgstr ""
 
@@ -764,11 +764,11 @@ msgstr ""
 msgid "Please provide your email."
 msgstr ""
 
-#: public/inc/class-stcfq-form.php:127
+#: public/inc/class-stcfq-form.php:126
 msgid "Please specify subject."
 msgstr ""
 
-#: public/inc/class-stcfq-form.php:136
+#: public/inc/class-stcfq-form.php:134
 msgid "Please provide your message."
 msgstr ""
 

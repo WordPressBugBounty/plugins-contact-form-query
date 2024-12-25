@@ -5,8 +5,8 @@ Donate link: https://scriptstown.com/
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.8.3
-License: GPLv2 or later
+Stable tag: 1.8.4
+License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Add a contact form and receive new message notifications directly to your WordPress admin and to your email. Search and filter messages.
@@ -66,6 +66,9 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 9. Latest Messages Dashboard Widget
 
 == Changelog ==
+
+= 1.8.4 =
+* Code improvements.
 
 = 1.8.3 =
 * Tested up to 6.7.

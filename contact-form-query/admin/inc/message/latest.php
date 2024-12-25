@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || die();
 
 global $wpdb;
 
-$messages = $wpdb->get_results( "SELECT ID, subject, message, created_at FROM {$wpdb->prefix}stcfq_queries ORDER BY ID DESC LIMIT 5" );
+$messages = $wpdb->get_results( "SELECT ID, subject, message, created_at FROM {$wpdb->prefix}stcfq_queries ORDER BY ID DESC LIMIT 5" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
 if ( count( $messages ) ) {
 	?>

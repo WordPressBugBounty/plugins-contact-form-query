@@ -505,7 +505,7 @@ class STCFQ_Helper {
 	public static function unanswered_messages_count_db() {
 		global $wpdb;
 
-		return $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}stcfq_queries WHERE answered = 0" );
+		return $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}stcfq_queries WHERE answered = 0" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 	}
 
 	public static function now() {

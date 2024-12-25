@@ -29,7 +29,7 @@ class STCFQ_Database {
 		dbDelta( $sql );
 
 		// Create index 'idx_answered' if not exists on stcfq_queries table.
-		$idx_answered = $wpdb->get_var(
+		$idx_answered = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			"SELECT COUNT(1) FROM INFORMATION_SCHEMA.STATISTICS
 			WHERE TABLE_SCHEMA = DATABASE()
 			AND TABLE_NAME = '{$wpdb->prefix}stcfq_queries'
@@ -37,7 +37,7 @@ class STCFQ_Database {
 		);
 
 		if ( ! $idx_answered ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}stcfq_queries ADD INDEX idx_answered (answered)" );
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}stcfq_queries ADD INDEX idx_answered (answered)" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
 		}
 
 		add_option( 'stcfq_redirect_to_settings', true );

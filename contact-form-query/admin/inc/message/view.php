@@ -3,11 +3,12 @@ defined( 'ABSPATH' ) || die();
 
 global $wpdb;
 
-if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) {
-	$message_id = absint( $_GET['id'] );
-	$value      = $wpdb->get_row( $wpdb->prepare( "SELECT ID, subject, message, name, email, note, answered, created_at FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $message_id ) );
+if ( isset( $_GET['id'] ) && ! empty( $_GET['id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used to read only.
+	$message_id = absint( $_GET['id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used to read only.
+	$value      = $wpdb->get_row( $wpdb->prepare( "SELECT ID, subject, message, name, email, note, answered, created_at FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $message_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 }
-if ( ! $value ) {
+
+if ( ! isset( $value ) || ! $value ) {
 	die();
 }
 

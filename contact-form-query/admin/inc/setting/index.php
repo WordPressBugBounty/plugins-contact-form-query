@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || die();
 
-$menu_tab = ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'form_fields';
+$menu_tab = ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'form_fields'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used to determine the active tab, not saved to the database.
 
 $menu_tabs = array(
 	'form_fields' => esc_html__( 'Form Fields', 'contact-form-query' ),

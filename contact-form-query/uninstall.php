@@ -23,5 +23,5 @@ if ( get_option( 'stcfq_delete_data_enable' ) ) {
 	delete_option( 'stcfq_design' );
 
 	global $wpdb;
-	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}stcfq_queries" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}stcfq_queries" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange
 }

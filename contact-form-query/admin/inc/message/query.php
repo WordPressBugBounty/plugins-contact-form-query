@@ -5,9 +5,9 @@ defined( 'ABSPATH' ) || die();
 $filter             = '';
 $filter_items_count = 0;
 $place_vars         = array();
-if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verify_nonce( $_POST['apply-filter'], 'apply-filter' ) ) ) && isset( $_POST['search_key'] ) && isset( $_POST['search_value'] ) ) {
+if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['apply-filter'] ) ), 'apply-filter' ) ) ) && isset( $_POST['search_key'] ) && isset( $_POST['search_value'] ) ) {
 	if ( is_array( $_POST['search_key'] ) ) {
-		$search_key = array_map( 'sanitize_text_field', $_POST['search_key'] );
+		$search_key = array_map( 'sanitize_text_field', wp_unslash( $_POST['search_key'] ) );
 		$search_key = array_intersect( $search_key, STCFQ_Helper::filter_list() );
 	} else {
 		$search_key = array();
@@ -18,7 +18,7 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 		$filter .= ' WHERE ';
 		foreach ( $search_key as $key => $value ) {
 			$search_field = sanitize_text_field( $value );
-			$search_value = isset( $_POST['search_value'][ $key ] ) ? sanitize_text_field( $_POST['search_value'][ $key ] ) : '';
+			$search_value = isset( $_POST['search_value'][ $key ] ) ? sanitize_text_field( wp_unslash( $_POST['search_value'][ $key ] ) ) : '';
 
 			if ( 'subject' === $search_field ) {
 				if ( isset( $filter_subject_exist ) ) {
@@ -27,7 +27,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_subject       = 'subject LIKE %s';
 					$filter_subject_exist = true;
 				}
-				$place_vars['subject'] = ( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				if ( array_key_exists( 'subject', $place_vars ) ) {
+					array_push( $place_vars['subject'], ( '%' . $wpdb->esc_like( $search_value ) . '%' ) );
+				} else {
+					$place_vars['subject'] = array( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				}
 			} elseif ( 'name' === $search_field ) {
 				if ( isset( $filter_name_exist ) ) {
 					$filter_name .= ' OR name LIKE %s';
@@ -35,7 +39,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_name       = 'name LIKE %s';
 					$filter_name_exist = true;
 				}
-				$place_vars['name'] = ( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				if ( array_key_exists( 'name', $place_vars ) ) {
+					array_push( $place_vars['name'], ( '%' . $wpdb->esc_like( $search_value ) . '%' ) );
+				} else {
+					$place_vars['name'] = array( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				}
 			} elseif ( 'email' === $search_field ) {
 				if ( isset( $filter_email_exist ) ) {
 					$filter_email .= ' OR email LIKE %s';
@@ -43,7 +51,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_email       = 'email LIKE %s';
 					$filter_email_exist = true;
 				}
-				$place_vars['email'] = ( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				if ( array_key_exists( 'email', $place_vars ) ) {
+					array_push( $place_vars['email'], ( '%' . $wpdb->esc_like( $search_value ) . '%' ) );
+				} else {
+					$place_vars['email'] = array( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				}
 			} elseif ( 'message' === $search_field ) {
 				if ( isset( $filter_message_exist ) ) {
 					$filter_message .= ' OR message LIKE %s';
@@ -51,7 +63,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_message       = 'message LIKE %s';
 					$filter_message_exist = true;
 				}
-				$place_vars['message'] = ( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				if ( array_key_exists( 'message', $place_vars ) ) {
+					array_push( $place_vars['message'], ( '%' . $wpdb->esc_like( $search_value ) . '%' ) );
+				} else {
+					$place_vars['message'] = array( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				}
 			} elseif ( 'answered' === $search_field ) {
 				if ( preg_match( '/^y/', strtolower( $search_value ) ) ) {
 					$search_value = 1;
@@ -65,7 +81,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_answered       = 'answered = %d';
 					$filter_answered_exist = true;
 				}
-				$place_vars['answered'] = $search_value;
+				if ( array_key_exists( 'answered', $place_vars ) ) {
+					array_push( $place_vars['answered'], $search_value );
+				} else {
+					$place_vars['answered'] = array( $search_value );
+				}
 			} elseif ( 'note' === $search_field ) {
 				if ( isset( $filter_note_exist ) ) {
 					$filter_note .= ' OR note LIKE %s';
@@ -73,7 +93,11 @@ if ( ( isset( $nonce_verified ) || ( isset( $_POST['apply-filter'] ) && wp_verif
 					$filter_note       = 'note LIKE %s';
 					$filter_note_exist = true;
 				}
-				$place_vars['note'] = ( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				if ( array_key_exists( 'note', $place_vars ) ) {
+					array_push( $place_vars['note'], ( '%' . $wpdb->esc_like( $search_value ) . '%' ) );
+				} else {
+					$place_vars['note'] = array( '%' . $wpdb->esc_like( $search_value ) . '%' );
+				}
 			}
 		}
 
@@ -114,10 +138,16 @@ $query = "SELECT ID, subject, message, name, email, answered, created_at FROM {$
 if ( count( $place_vars ) > 0 ) {
 	$filtered   = array_intersect( array( 'subject', 'name', 'email', 'message', 'answered', 'note' ), array_keys( $place_vars ) );
 	$place_vars = array_replace( array_flip( $filtered ), $place_vars );
-	$query      = $wpdb->prepare( $query, $place_vars );
+
+	$place_vars_all = array();
+	foreach ( $place_vars as $values ) {
+		$place_vars_all = array_merge( $place_vars_all, $values );
+	}
+
+	$query = $wpdb->prepare( $query, $place_vars_all ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Already prepared and safely passed.
 }
-$total          = $wpdb->get_var( "SELECT COUNT(1) FROM ({$query}) AS combined_table" ); // This query is already prepared above.
+$total          = $wpdb->get_var( "SELECT COUNT(1) FROM ({$query}) AS combined_table" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared  -- Already prepared and safely passed.
 $items_per_page = 25;
 $offset         = ( $current_page * $items_per_page ) - $items_per_page;
-$messages       = $wpdb->get_results( $wpdb->prepare( ( $query . ' ORDER BY ID DESC LIMIT %d, %d' ), $offset, $items_per_page ) );
+$messages       = $wpdb->get_results( $wpdb->prepare( ( $query . ' ORDER BY ID DESC LIMIT %d, %d' ), $offset, $items_per_page ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared -- Already prepared and safely passed.
 $total_pages    = ceil( $total / $items_per_page );

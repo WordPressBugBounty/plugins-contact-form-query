@@ -67,11 +67,16 @@ require_once STCFQ_PLUGIN_DIR_PATH . 'admin/inc/message/query.php';
 				<?php if ( $filter_items_count ) { ?>
 					data.search_key = [];
 					data.search_value = [];
-					<?php foreach ( $search_key as $key => $value ) { ?>
+					<?php
+					foreach ( $search_key as $key => $value ) {
+						$search_value = isset( $_POST['search_value'][ $key ] ) ? sanitize_text_field( wp_unslash( $_POST['search_value'][ $key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce already verified.
+						?>
 						data.search_key[<?php echo esc_attr( $key ); ?>] = '<?php echo esc_attr( $value ); ?>';
-						data.search_value[<?php echo esc_attr( $key ); ?>] = '<?php echo esc_attr( $_POST['search_value'][ $key ] ); ?>';
-					<?php } ?>
-				<?php } ?>
+						data.search_value[<?php echo esc_attr( $key ); ?>] = '<?php echo esc_attr( $search_value ); ?>';
+						<?php
+					}
+				}
+				?>
 
 				$.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function(response) {
 					if($.trim(response) != '') {

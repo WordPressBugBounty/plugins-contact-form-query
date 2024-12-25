@@ -8,7 +8,7 @@ class STCFQ_Message {
 			die();
 		}
 
-		if ( ! wp_verify_nonce( $_POST['security'], 'paginate-messages' ) ) {
+		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'paginate-messages' ) ) {
 			die();
 		}
 
@@ -32,12 +32,12 @@ class STCFQ_Message {
 
 			$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : '';
 
-			if ( ! wp_verify_nonce( $_POST[ 'delete-message-' . $id ], 'delete-message-' . $id ) ) {
+			if ( ! isset( $_POST[ 'delete-message-' . $id ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'delete-message-' . $id ] ) ), 'delete-message-' . $id ) ) {
 				die();
 			}
 
 			// Checks if message exists.
-			$message = $wpdb->get_row( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $id ) );
+			$message = $wpdb->get_row( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			if ( ! $message ) {
 				throw new Exception( esc_html__( 'Message not found.', 'contact-form-query' ) );
@@ -54,7 +54,7 @@ class STCFQ_Message {
 		}
 
 		try {
-			$success = $wpdb->delete( "{$wpdb->prefix}stcfq_queries", array( 'ID' => $id ) );
+			$success = $wpdb->delete( "{$wpdb->prefix}stcfq_queries", array( 'ID' => $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			$message = esc_html__( 'Message deleted successfully.', 'contact-form-query' );
 
 			$exception = ob_get_clean();
@@ -79,7 +79,7 @@ class STCFQ_Message {
 			die();
 		}
 
-		if ( ! wp_verify_nonce( $_POST[ 'bulk-action' ], 'bulk-action' ) ) {
+		if ( ! isset( $_POST['bulk-action'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['bulk-action'] ) ), 'bulk-action' ) ) {
 			die();
 		}
 
@@ -114,7 +114,7 @@ class STCFQ_Message {
 
 				$ids_string = implode( ',', $ids );
 
-				$success = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}stcfq_queries WHERE ID IN (" . $place_holders_ids . ')', $ids ) );
+				$success = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}stcfq_queries WHERE ID IN (" . $place_holders_ids . ')', $ids ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Already prepared and safely passed.
 
 				$message = esc_html__( 'Messages deleted successfully.', 'contact-form-query' );
 
@@ -151,19 +151,19 @@ class STCFQ_Message {
 
 			$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : '';
 
-			if ( ! wp_verify_nonce( $_POST[ 'save-note-' . $id ], 'save-note-' . $id ) ) {
+			if ( ! isset( $_POST[ 'save-note-' . $id ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'save-note-' . $id ] ) ), 'save-note-' . $id ) ) {
 				die();
 			}
 
 			// Checks if message exists.
-			$message = $wpdb->get_row( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $id ) );
+			$message = $wpdb->get_row( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}stcfq_queries WHERE ID = %d", $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			if ( ! $message ) {
 				throw new Exception( esc_html__( 'Message not found.', 'contact-form-query' ) );
 			}
 
 			$answered = isset( $_POST['answered'] ) ? (bool) $_POST['answered'] : false;
-			$note     = isset( $_POST['note'] ) ? sanitize_text_field( $_POST['note'] ) : '';
+			$note     = isset( $_POST['note'] ) ? sanitize_text_field( wp_unslash( $_POST['note'] ) ) : '';
 
 		} catch ( Exception $exception ) {
 			$buffer = ob_get_clean();
@@ -182,7 +182,7 @@ class STCFQ_Message {
 				'updated_at' => STCFQ_Helper::now(),
 			);
 
-			$success = $wpdb->update( "{$wpdb->prefix}stcfq_queries", $data, array( 'ID' => $id ) );
+			$success = $wpdb->update( "{$wpdb->prefix}stcfq_queries", $data, array( 'ID' => $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			$message = esc_html__( 'Message status updated.', 'contact-form-query' );
 
 			$buffer = ob_get_clean();
