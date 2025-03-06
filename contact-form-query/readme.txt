@@ -2,10 +2,8 @@
 Contributors: scriptstown
 Tags: contact form plugin, contact form, email, contact, form
 Donate link: https://scriptstown.com/
-Requires at least: 5.0
 Tested up to: 6.7
-Requires PHP: 7.0
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +64,10 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 9. Latest Messages Dashboard Widget
 
 == Changelog ==
+
+= 1.8.5 =
+* Tested up to 6.7.2.
+* Readme updated.
 
 = 1.8.4 =
 * Code improvements.
