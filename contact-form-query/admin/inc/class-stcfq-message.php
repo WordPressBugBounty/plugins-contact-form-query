@@ -114,7 +114,7 @@ class STCFQ_Message {
 
 				$ids_string = implode( ',', $ids );
 
-				$success = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}stcfq_queries WHERE ID IN (" . $place_holders_ids . ')', $ids ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Already prepared and safely passed.
+				$success = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}stcfq_queries WHERE ID IN (" . $place_holders_ids . ')', $ids ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare,PluginCheck.Security.DirectDB.UnescapedDBParameter -- Already prepared and safely passed.
 
 				$message = esc_html__( 'Messages deleted successfully.', 'contact-form-query' );
 

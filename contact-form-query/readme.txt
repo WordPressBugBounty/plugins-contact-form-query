@@ -2,8 +2,8 @@
 Contributors: scriptstown
 Tags: contact form plugin, contact form, email, contact, form
 Donate link: https://scriptstown.com/
-Tested up to: 6.8
-Stable tag: 1.8.7
+Tested up to: 6.9
+Stable tag: 1.8.9
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,14 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 9. Latest Messages Dashboard Widget
 
 == Changelog ==
+
+= 1.8.9 =
+* Tested compatibility with PHP 8.5.
+* Readme updated.
+
+= 1.8.8 =
+* Code improvements.
+* Tested up to 6.9.
 
 = 1.8.7 =
 * Code improvements.
@@ -257,39 +265,3 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 
 = 1.1.0 =
 * Added design settings.
-
-= 1.0.9 =
-* Design improvements.
-
-= 1.0.8 =
-* Added compact design.
-
-= 1.0.7 =
-* Removed unanswered messages count from admin menu.
-* Added button to copy shortcode.
-* Tested up to 5.3.
-
-= 1.0.6 =
-* Fixed admin bar icon on small devices.
-
-= 1.0.5 =
-* Removed unused code.
-
-= 1.0.4 =
-* Added email settings.
-* Added email to admin.
-
-= 1.0.3 =
-* Added number of unanswered messages in admin bar.
-
-= 1.0.2 =
-* Added support for Google reCAPTCHA v2.
-* Added success message setting.
-* Added submit button setting.
-
-= 1.0.1 =
-* Added consent checkbox.
-* Added uninstall setting.
-
-= 1.0.0 =
-* New release.

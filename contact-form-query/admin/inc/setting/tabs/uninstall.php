@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- File is loaded within a function, variables are not global.
 defined( 'ABSPATH' ) || die();
 
 $delete_data_enable = get_option( 'stcfq_delete_data_enable' );

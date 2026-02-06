@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- File is loaded within a function, variables are not global.
 defined( 'ABSPATH' ) || die();
 
 wp_enqueue_style( 'stcfq', STCFQ_PLUGIN_URL . 'assets/css/stcfq.min.css', array(), STCFQ_PLUGIN_VERSION, 'all' );

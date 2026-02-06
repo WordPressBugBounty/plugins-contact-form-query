@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- File is loaded within a function, variables are not global.
 defined( 'ABSPATH' ) || die();
 
 /* Search and filters */
@@ -146,8 +146,8 @@ if ( count( $place_vars ) > 0 ) {
 
 	$query = $wpdb->prepare( $query, $place_vars_all ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Already prepared and safely passed.
 }
-$total          = $wpdb->get_var( "SELECT COUNT(1) FROM ({$query}) AS combined_table" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared  -- Already prepared and safely passed.
+$total          = $wpdb->get_var( "SELECT COUNT(1) FROM ({$query}) AS combined_table" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter  -- Already prepared and safely passed.
 $items_per_page = 25;
 $offset         = ( $current_page * $items_per_page ) - $items_per_page;
-$messages       = $wpdb->get_results( $wpdb->prepare( ( $query . ' ORDER BY ID DESC LIMIT %d, %d' ), $offset, $items_per_page ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared -- Already prepared and safely passed.
+$messages       = $wpdb->get_results( $wpdb->prepare( ( $query . ' ORDER BY ID DESC LIMIT %d, %d' ), $offset, $items_per_page ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared,PluginCheck.Security.DirectDB.UnescapedDBParameter -- Already prepared and safely passed.
 $total_pages    = ceil( $total / $items_per_page );

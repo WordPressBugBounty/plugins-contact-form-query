@@ -1,6 +1,7 @@
-<?php
+<?php // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- File is loaded within a function, variables are not global.
 defined( 'ABSPATH' ) || die();
 require_once STCFQ_PLUGIN_DIR_PATH . 'includes/class-stcfq-helper.php';
+
 $contact_fields    = STCFQ_Helper::contact_fields();
 $consent_field     = STCFQ_Helper::consent_field();
 $submit_button     = STCFQ_Helper::submit_button();
