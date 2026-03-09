@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.9.0 =
+* Tested up to 7.0.
+* Improvement: Settings page.
+
 = 1.8.9 =
 * Tested compatibility with PHP 8.5.
 * Readme updated.

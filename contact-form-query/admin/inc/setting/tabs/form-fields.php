@@ -20,8 +20,8 @@ $feedback_messages = STCFQ_Helper::feedback_messages();
 
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Contact Form Shortcode', 'contact-form-query' ); ?></th>
-				<td>
-					<strong id="stcfq-contact-form-shortcode">[contact_form_query]</strong>&nbsp;
+				<td class="stcfq-flex stcfq-copy-code">
+					<strong id="stcfq-contact-form-shortcode">[contact_form_query]</strong>
 					<button type="button" class="button" id="stcfq-copy-contact-form-shortcode" data-message="<?php esc_attr_e( 'Copied to clipboard.', 'contact-form-query' ); ?>"><?php esc_html_e( 'Copy', 'contact-form-query' ); ?></button>
 					<p class="description">
 						<?php esc_html_e( 'Use above shortcode in any page or post to display the contact form. Also, you may use "Contact Form" block in the block editor to display the contact form.', 'contact-form-query' ); ?>
