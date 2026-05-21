@@ -13,7 +13,7 @@ class STCFQ_Admin_Bar {
 				array(
 					'id'    => 'stcfq-messages-count',
 					/* translators: %d: Number of unanswered messages */
-					'title' => '<span class="ab-icon"></span><span class="ab-label awaiting-mod count-' . esc_attr( $messages_count ) . '" aria-hidden="true">' . esc_html( $messages_count ) . '</span><span class="screen-reader-text comments-in-moderation-text">' . sprintf( esc_html( _n( '%d Message not answered.', '%d Messages not answered', $messages_count, 'contact-form-query' ) ), $messages_count ) . '</span>',
+					'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label awaiting-mod count-' . esc_attr( $messages_count ) . '" aria-hidden="true">' . esc_html( $messages_count ) . '</span><span class="screen-reader-text comments-in-moderation-text">' . sprintf( esc_html( _n( '%d Message not answered.', '%d Messages not answered', $messages_count, 'contact-form-query' ) ), $messages_count ) . '</span>',
 					'href'  => esc_url( admin_url( 'admin.php?page=stcfq_messages' ) ),
 				)
 			);

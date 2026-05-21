@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.9.1 =
+* Improvement: CSS fixes.
+* Readme updated.
+
 = 1.9.0 =
 * Tested up to 7.0.
 * Improvement: Settings page.
