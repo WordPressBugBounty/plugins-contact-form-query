@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.9.2 =
+* Improvement: Ignore blank lines for keywords.
+* Readme updated.
+
 = 1.9.1 =
 * Improvement: CSS fixes.
 * Readme updated.

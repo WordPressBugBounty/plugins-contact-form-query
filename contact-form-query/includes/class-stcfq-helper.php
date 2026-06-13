@@ -204,10 +204,17 @@ class STCFQ_Helper {
 
 	public static function keyword_found( $keywords, $keyword ) {
 		foreach ( $keywords as $key => $val ) {
+			$val = trim( $val );
+			if ( '' === $val ) {
+				continue;
+			}
+
 			if ( false !== strpos( $keyword, $val ) ) {
 				return true;
 			}
 		}
+
+		return false;
 	}
 
 	public static function add_async_defer_attribute( $tag, $handle ) {
