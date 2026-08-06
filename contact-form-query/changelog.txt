@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.9.3 =
+* Tested up to 7.1.
+* Readme updated.
+
 = 1.9.2 =
 * Improvement: Ignore blank lines for keywords.
 * Readme updated.
