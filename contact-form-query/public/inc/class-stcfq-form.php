@@ -53,7 +53,7 @@ class STCFQ_Form {
 				if ( ! empty( $cf_turnstile['site_key'] ) && ! empty( $cf_turnstile['secret_key'] ) ) {
 					if ( isset( $_POST['cf-turnstile-response'] ) && ! empty( $_POST['cf-turnstile-response'] ) ) {
 						$response = wp_remote_post(
-							'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+							'https://challenges.cloudflare.com/turnstile/v0/siteverify', // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- Needed for Cloudflare Turnstile service.
 							array(
 								'body' => array(
 									'secret'   => $cf_turnstile['secret_key'],
