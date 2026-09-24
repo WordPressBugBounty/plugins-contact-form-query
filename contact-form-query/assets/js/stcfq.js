@@ -6,7 +6,7 @@
 			'class': 'st-loading-container'
 		});
 		var loadingImage = $('<img/>', {
-			'src': stcfqadminurl + 'images/spinner.gif',
+			'src': stcfqvars.adminUrl + 'images/spinner.gif',
 			'class': 'st-loading-image'
 		});
 
@@ -17,6 +17,43 @@
 			var saveContactForm = $(this);
 			var saveContactBtn = saveContactForm.find(':submit');
 			var captcha = saveContactBtn.data('cpt');
+
+			function showError(message) {
+				var errorBox = $('<div/>', {
+					'class': 'st-alert-message st-alert-error',
+					'role': 'alert',
+					'tabindex': '-1'
+				}).append($('<strong/>').text(message));
+				$('.st-alert-message').remove();
+				errorBox.insertBefore(contactForm).focus();
+			}
+
+			function resetRecaptcha() {
+				var recaptchaWidget = saveContactForm.find('.g-recaptcha');
+				if('google_recaptcha_v2' !== captcha || !recaptchaWidget.length || 'undefined' === typeof grecaptcha || 'function' !== typeof grecaptcha.reset) {
+					return;
+				}
+				grecaptcha.reset($('.g-recaptcha').index(recaptchaWidget));
+			}
+
+			function removeTurnstile() {
+				var widgetId = saveContactForm.data('stcfqTurnstileId');
+				if(undefined === widgetId) {
+					return;
+				}
+				saveContactForm.removeData('stcfqTurnstileId');
+				if('undefined' !== typeof turnstile) {
+					turnstile.remove(widgetId);
+				}
+			}
+
+			function cancelTurnstile(message) {
+				removeTurnstile();
+				saveContactBtn.prop('disabled', false);
+				if(message) {
+					showError(message);
+				}
+			}
 
 			function submitForm(callback) {
 				saveContactForm.ajaxSubmit({
@@ -73,6 +110,7 @@
 						if('function' === typeof callback) {
 							callback();
 						}
+						resetRecaptcha();
 						saveContactBtn.prop('disabled', false);
 						loadingContainer.remove();
 					}
@@ -80,19 +118,41 @@
 			}
 
 			if('cf_turnstile' === captcha) {
-				var siteKey = saveContactBtn.data('site-key');
-				var theme = saveContactBtn.data('cpt-theme');
-				var widgetId = '#stcfq-cf-turnstile';
-				turnstile.render(widgetId, {
-					sitekey: siteKey,
+				if(undefined !== saveContactForm.data('stcfqTurnstileId')) {
+					return;
+				}
+
+				if('undefined' === typeof turnstile) {
+					showError(stcfqvars.captchaLoadError);
+					return;
+				}
+
+				saveContactBtn.prop('disabled', true);
+
+				var widgetId = turnstile.render(saveContactForm.find('.stcfq-cf-turnstile')[0], {
+					sitekey: saveContactBtn.data('site-key'),
 					action: 'contact-form-query',
-					theme: theme,
-					callback: function(token) {
-						submitForm(function() {
-							turnstile.remove(widgetId);
-						});
+					theme: saveContactBtn.data('cpt-theme'),
+					callback: function() {
+						submitForm(removeTurnstile);
 					},
+					'error-callback': function() {
+						cancelTurnstile(stcfqvars.captchaError);
+					},
+					'expired-callback': function() {
+						cancelTurnstile();
+					},
+					'timeout-callback': function() {
+						cancelTurnstile(stcfqvars.captchaError);
+					}
 				});
+
+				if(undefined === widgetId) {
+					cancelTurnstile(stcfqvars.captchaError);
+					return;
+				}
+
+				saveContactForm.data('stcfqTurnstileId', widgetId);
 			} else {
 				submitForm();
 			}

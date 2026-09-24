@@ -4,10 +4,14 @@ defined( 'ABSPATH' ) || die();
 wp_enqueue_style( 'stcfq', STCFQ_PLUGIN_URL . 'assets/css/stcfq.min.css', array(), STCFQ_PLUGIN_VERSION, 'all' );
 wp_style_add_data( 'stcfq', 'rtl', 'replace' );
 wp_enqueue_script( 'stcfq', STCFQ_PLUGIN_URL . 'assets/js/stcfq.min.js', array( 'jquery', 'jquery-form' ), STCFQ_PLUGIN_VERSION, true );
-wp_add_inline_script(
+wp_localize_script(
 	'stcfq',
-	sprintf( 'var stcfqadminurl = %s;', wp_json_encode( admin_url() ) ),
-	'before'
+	'stcfqvars',
+	array(
+		'adminUrl'         => esc_url( admin_url() ),
+		'captchaLoadError' => esc_html__( 'The captcha failed to load. Please refresh the page and try again.', 'contact-form-query' ),
+		'captchaError'     => esc_html__( 'The captcha could not be completed. Please try again.', 'contact-form-query' ),
+	)
 );
 
 require_once STCFQ_PLUGIN_DIR_PATH . 'includes/class-stcfq-helper.php';
@@ -59,6 +63,10 @@ if ( '#dc3232' !== $validation_error_border_color ) {
 	$css .= ( '.stcfq-container .st-is-invalid { border-color: ' . sanitize_hex_color( $validation_error_border_color ) . ' !important; }' );
 }
 
+if ( ! empty( $captcha ) ) {
+	$css .= '.stcfq-container .stcfq-captcha { margin-bottom: 1em; }';
+}
+
 if ( ! empty( $css ) ) {
 	wp_add_inline_style( 'stcfq', $css );
 }
@@ -100,12 +108,13 @@ if ( ! empty( $css ) ) {
 		if ( 'google_recaptcha_v2' === $captcha ) {
 			$google_recaptcha_v2 = STCFQ_Helper::google_recaptcha_v2();
 			if ( ! empty( $google_recaptcha_v2['site_key'] ) && ! empty( $google_recaptcha_v2['secret_key'] ) ) {
+				$data_cpt = 'google_recaptcha_v2';
 				add_filter( 'script_loader_tag', array( 'STCFQ_Helper', 'add_async_defer_attribute' ), 10, 2 );
 				wp_enqueue_script( 'recaptcha-api-v2', 'https://www.google.com/recaptcha/api.js', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters,PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent -- Needed for Google reCAPTCHA service.
 				?>
-			<p>
+			<div class="stcfq-captcha">
 				<div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $google_recaptcha_v2['site_key'] ); ?>" data-theme="<?php echo esc_attr( $google_recaptcha_v2['theme'] ); ?>"></div>
-			</p>
+			</div>
 				<?php
 			}
 		} elseif ( 'cf_turnstile' === $captcha ) {
@@ -117,10 +126,10 @@ if ( ! empty( $css ) ) {
 				add_filter( 'script_loader_tag', array( 'STCFQ_Helper', 'add_async_defer_attribute' ), 10, 2 );
 				wp_enqueue_script( 'cf-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters,PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent -- Needed for Cloudflare Turnstile CAPTCHA service.
 				?>
-			<p>
-				<div id="stcfq-cf-turnstile"></div>
-			</p>
-			<?php
+			<div class="stcfq-captcha">
+				<div class="stcfq-cf-turnstile"></div>
+			</div>
+				<?php
 			}
 		}
 		?>

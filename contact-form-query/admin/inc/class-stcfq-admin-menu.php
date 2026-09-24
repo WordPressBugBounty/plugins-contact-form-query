@@ -33,10 +33,12 @@ class STCFQ_Admin_Menu {
 		wp_enqueue_style( 'stcfq-admin' );
 		wp_style_add_data( 'stcfq-admin', 'rtl', 'replace' );
 		wp_enqueue_script( 'stcfq-admin', STCFQ_PLUGIN_URL . 'assets/js/stcfq-admin.js', array( 'jquery', 'jquery-form', 'jquery-ui-sortable', 'wp-color-picker' ), STCFQ_PLUGIN_VERSION, true );
-		wp_add_inline_script(
+		wp_localize_script(
 			'stcfq-admin',
-			sprintf( 'var stcfqadminurl = %s;', wp_json_encode( admin_url() ) ),
-			'before'
+			'stcfqvars',
+			array(
+				'adminUrl' => esc_url( admin_url() ),
+			)
 		);
 	}
 
@@ -49,10 +51,12 @@ class STCFQ_Admin_Menu {
 		wp_enqueue_style( 'stcfq-admin' );
 		wp_style_add_data( 'stcfq-admin', 'rtl', 'replace' );
 		wp_enqueue_script( 'stcfq-admin', STCFQ_PLUGIN_URL . 'assets/js/stcfq-admin.js', array( 'jquery', 'jquery-form', 'jquery-ui-sortable', 'wp-color-picker' ), STCFQ_PLUGIN_VERSION, true );
-		wp_add_inline_script(
+		wp_localize_script(
 			'stcfq-admin',
-			sprintf( 'var stcfqadminurl = %s;', wp_json_encode( admin_url() ) ),
-			'before'
+			'stcfqvars',
+			array(
+				'adminUrl' => esc_url( admin_url() ),
+			)
 		);
 	}
 }

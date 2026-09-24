@@ -28,18 +28,15 @@ class STCFQ_Form {
 				$google_recaptcha_v2 = STCFQ_Helper::google_recaptcha_v2();
 				if ( ! empty( $google_recaptcha_v2['site_key'] ) && ! empty( $google_recaptcha_v2['secret_key'] ) ) {
 					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
-						$response = wp_remote_post(
+						$data = self::verify_captcha(
 							'https://www.google.com/recaptcha/api/siteverify',
-							array(
-								'body' => array(
-									'secret'   => $google_recaptcha_v2['secret_key'],
-									'response' => sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ),
-								),
-							)
+							$google_recaptcha_v2['secret_key'],
+							sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) )
 						);
 
-						$data = wp_remote_retrieve_body( $response );
-						$data = json_decode( $data );
+						if ( false === $data ) {
+							throw new Exception( wp_kses( __( '<strong>ERROR:</strong> Unable to verify the captcha. Please try again.', 'contact-form-query' ), array( 'strong' => array() ) ) );
+						}
 
 						if ( ! ( isset( $data->success ) && ( true === $data->success ) ) ) {
 							throw new Exception( wp_kses( __( '<strong>ERROR:</strong> Please confirm you are not a robot.', 'contact-form-query' ), array( 'strong' => array() ) ) );
@@ -52,20 +49,21 @@ class STCFQ_Form {
 				$cf_turnstile = STCFQ_Helper::cf_turnstile();
 				if ( ! empty( $cf_turnstile['site_key'] ) && ! empty( $cf_turnstile['secret_key'] ) ) {
 					if ( isset( $_POST['cf-turnstile-response'] ) && ! empty( $_POST['cf-turnstile-response'] ) ) {
-						$response = wp_remote_post(
+						$data = self::verify_captcha(
 							'https://challenges.cloudflare.com/turnstile/v0/siteverify', // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- Needed for Cloudflare Turnstile service.
-							array(
-								'body' => array(
-									'secret'   => $cf_turnstile['secret_key'],
-									'response' => sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) ),
-								),
-							)
+							$cf_turnstile['secret_key'],
+							sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) )
 						);
 
-						$data = wp_remote_retrieve_body( $response );
-						$data = json_decode( $data );
+						if ( false === $data ) {
+							throw new Exception( wp_kses( __( '<strong>ERROR:</strong> Unable to verify the captcha. Please try again.', 'contact-form-query' ), array( 'strong' => array() ) ) );
+						}
 
 						if ( ! ( isset( $data->success ) && ( true === $data->success ) ) ) {
+							throw new Exception( wp_kses( __( '<strong>ERROR:</strong> Please confirm you are not a robot.', 'contact-form-query' ), array( 'strong' => array() ) ) );
+						}
+
+						if ( isset( $data->action ) && '' !== $data->action && 'contact-form-query' !== $data->action ) {
 							throw new Exception( wp_kses( __( '<strong>ERROR:</strong> Please confirm you are not a robot.', 'contact-form-query' ), array( 'strong' => array() ) ) );
 						}
 					} else {
@@ -81,7 +79,7 @@ class STCFQ_Form {
 			$name_required    = true;
 			$email_required   = true;
 			$subject_required = true;
-			$name_required    = true;
+			$message_required = true;
 
 			foreach ( $contact_fields as $key => $field ) {
 				if ( 'name' === $field['name'] ) {
@@ -220,5 +218,26 @@ class STCFQ_Form {
 		}
 
 		wp_send_json_error( $errors );
+	}
+
+	private static function verify_captcha( $url, $secret, $token ) {
+		$response = wp_remote_post(
+			$url,
+			array(
+				'timeout' => 15,
+				'body'    => array(
+					'secret'   => $secret,
+					'response' => $token,
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		$data = json_decode( wp_remote_retrieve_body( $response ) );
+
+		return is_object( $data ) ? $data : false;
 	}
 }

@@ -103,7 +103,7 @@
 			'class': 'st-loading-container'
 		});
 		var loadingImage = $('<img/>', {
-			'src': stcfqadminurl + 'images/spinner.gif',
+			'src': stcfqvars.adminUrl + 'images/spinner.gif',
 			'class': 'st-loading-image'
 		});
 

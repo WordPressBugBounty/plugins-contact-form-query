@@ -175,7 +175,9 @@ class STCFQ_Helper {
 
 		$google_recaptcha_v2['site_key']   = isset( $google_recaptcha_v2['site_key'] ) ? $google_recaptcha_v2['site_key'] : '';
 		$google_recaptcha_v2['secret_key'] = isset( $google_recaptcha_v2['secret_key'] ) ? $google_recaptcha_v2['secret_key'] : '';
-		$google_recaptcha_v2['theme']      = isset( $google_recaptcha_v2['theme'] ) ? $google_recaptcha_v2['theme'] : 'light';
+		if ( ! isset( $google_recaptcha_v2['theme'] ) || ! in_array( $google_recaptcha_v2['theme'], array_keys( self::google_recaptcha_v2_themes() ), true ) ) {
+			$google_recaptcha_v2['theme'] = 'light';
+		}
 
 		return $google_recaptcha_v2;
 	}
@@ -197,7 +199,9 @@ class STCFQ_Helper {
 
 		$cf_turnstile['site_key']   = isset( $cf_turnstile['site_key'] ) ? $cf_turnstile['site_key'] : '';
 		$cf_turnstile['secret_key'] = isset( $cf_turnstile['secret_key'] ) ? $cf_turnstile['secret_key'] : '';
-		$cf_turnstile['theme']      = isset( $cf_turnstile['theme'] ) ? $cf_turnstile['theme'] : 'light';
+		if ( ! isset( $cf_turnstile['theme'] ) || ! in_array( $cf_turnstile['theme'], array_keys( self::cf_turnstile_themes() ), true ) ) {
+			$cf_turnstile['theme'] = 'light';
+		}
 
 		return $cf_turnstile;
 	}

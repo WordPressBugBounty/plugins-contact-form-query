@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.9.5 =
+* Improvement: Better captcha verification error handling.
+
 = 1.9.4 =
 * Code improvements.
 
