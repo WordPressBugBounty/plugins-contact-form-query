@@ -3,7 +3,7 @@ Contributors: scriptstown
 Tags: contact form plugin, contact form, email, contact, form
 Donate link: https://scriptstown.com/
 Tested up to: 7.1
-Stable tag: 1.9.5
+Stable tag: 1.9.6
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,9 @@ Use the shortcode **[contact_form_query]** in any page or post to display the co
 9. Latest Messages Dashboard Widget
 
 == Changelog ==
+
+= 1.9.6 =
+* Improvement: Cloudflare Turnstile now loads automatically with the form instead of rendering on submit click.
 
 = 1.9.5 =
 * Improvement: Better captcha verification error handling.

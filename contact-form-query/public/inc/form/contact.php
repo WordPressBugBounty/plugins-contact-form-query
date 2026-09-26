@@ -8,9 +8,7 @@ wp_localize_script(
 	'stcfq',
 	'stcfqvars',
 	array(
-		'adminUrl'         => esc_url( admin_url() ),
-		'captchaLoadError' => esc_html__( 'The captcha failed to load. Please refresh the page and try again.', 'contact-form-query' ),
-		'captchaError'     => esc_html__( 'The captcha could not be completed. Please try again.', 'contact-form-query' ),
+		'adminUrl' => esc_url( admin_url() ),
 	)
 );
 
@@ -102,9 +100,7 @@ if ( ! empty( $css ) ) {
 		</p>
 			<?php
 		}
-		$data_cpt       = '';
-		$data_site_key  = '';
-		$data_cpt_theme = '';
+		$data_cpt = '';
 		if ( 'google_recaptcha_v2' === $captcha ) {
 			$google_recaptcha_v2 = STCFQ_Helper::google_recaptcha_v2();
 			if ( ! empty( $google_recaptcha_v2['site_key'] ) && ! empty( $google_recaptcha_v2['secret_key'] ) ) {
@@ -120,14 +116,12 @@ if ( ! empty( $css ) ) {
 		} elseif ( 'cf_turnstile' === $captcha ) {
 			$cf_turnstile = STCFQ_Helper::cf_turnstile();
 			if ( ! empty( $cf_turnstile['site_key'] ) && ! empty( $cf_turnstile['secret_key'] ) ) {
-				$data_cpt       = 'cf_turnstile';
-				$data_site_key  = $cf_turnstile['site_key'];
-				$data_cpt_theme = $cf_turnstile['theme'];
+				$data_cpt = 'cf_turnstile';
 				add_filter( 'script_loader_tag', array( 'STCFQ_Helper', 'add_async_defer_attribute' ), 10, 2 );
-				wp_enqueue_script( 'cf-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters,PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent -- Needed for Cloudflare Turnstile CAPTCHA service.
+				wp_enqueue_script( 'cf-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters,PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent -- Needed for Cloudflare Turnstile CAPTCHA service.
 				?>
 			<div class="stcfq-captcha">
-				<div class="stcfq-cf-turnstile"></div>
+				<div class="cf-turnstile" data-sitekey="<?php echo esc_attr( $cf_turnstile['site_key'] ); ?>" data-theme="<?php echo esc_attr( $cf_turnstile['theme'] ); ?>" data-action="contact-form-query"></div>
 			</div>
 				<?php
 			}
@@ -137,8 +131,6 @@ if ( ! empty( $css ) ) {
 		<div class="stcfq-save-contact-btn-wrap<?php echo esc_attr( ( '' !== $submit_button['parent_classes'] ) ? ( ' ' . $submit_button['parent_classes'] ) : '' ); ?>">
 			<button type="submit" class="stcfq-save-contact-btn<?php echo esc_attr( ( '' !== $submit_button['classes'] ) ? ( ' ' . $submit_button['classes'] ) : '' ); ?>" <?php
 			if ( '' !== $data_cpt ) { echo ( 'data-cpt="' . esc_attr( $data_cpt ) . '"' ); }
-			if ( '' !== $data_site_key ) { echo ( ' data-site-key="' . esc_attr( $data_site_key ) . '"' ); }
-			if ( '' !== $data_cpt_theme ) { echo ( ' data-cpt-theme="' . esc_attr( $data_cpt_theme ) . '"' ); }
 			?>><?php echo esc_html( $submit_button['text'] ); ?></button>
 		</div>
 	</form>

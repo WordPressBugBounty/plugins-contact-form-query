@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.9.6 =
+* Improvement: Cloudflare Turnstile now loads automatically with the form instead of rendering on submit click.
+
 = 1.9.5 =
 * Improvement: Better captcha verification error handling.
 

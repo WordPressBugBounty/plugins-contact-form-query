@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Contact Form Query plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contact Form Query 1.9.5\n"
+"Project-Id-Version: Contact Form Query 1.9.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contact-form-"
 "query\n"
-"POT-Creation-Date: 2026-09-24T18:44:35+00:00\n"
-"PO-Revision-Date: 2026-09-25 00:14+0530\n"
+"POT-Creation-Date: 2026-09-26T05:27:34+00:00\n"
+"PO-Revision-Date: 2026-09-26 10:57+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hi_IN\n"
@@ -768,14 +768,6 @@ msgstr ""
 
 #: public/inc/class-stcfq-form.php:132
 msgid "Please provide your message."
-msgstr ""
-
-#: public/inc/form/contact.php:12
-msgid "The captcha failed to load. Please refresh the page and try again."
-msgstr ""
-
-#: public/inc/form/contact.php:13
-msgid "The captcha could not be completed. Please try again."
 msgstr ""
 
 #: includes/block/block.json
