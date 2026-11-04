@@ -1,4 +1,4 @@
-#wpadminbar #wp-admin-bar-stcfq-messages-count .ab-icon:before {
+#wpadminbar #wp-admin-bar-stcfq-messages-count .ab-icon:not(.svg-icon):before {
 	content: "\f465";
 	top: 3px;
 }
@@ -8,7 +8,7 @@
 		margin: 0;
 	}
 
-	#wpadminbar #wp-admin-bar-stcfq-messages-count .ab-icon:before {
+	#wpadminbar #wp-admin-bar-stcfq-messages-count .ab-icon:not(.svg-icon):before {
 		display: block;
 		font-size: 34px;
 		height: 46px;

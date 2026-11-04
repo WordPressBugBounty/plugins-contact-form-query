@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Contact Form Query plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contact Form Query 1.9.6\n"
+"Project-Id-Version: Contact Form Query 1.9.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contact-form-"
 "query\n"
-"POT-Creation-Date: 2026-09-26T05:27:34+00:00\n"
-"PO-Revision-Date: 2026-09-26 10:57+0530\n"
+"POT-Creation-Date: 2026-11-04T05:42:09+00:00\n"
+"PO-Revision-Date: 2026-11-04 11:12+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hi_IN\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 "X-Domain: contact-form-query\n"
 
 #. Plugin Name of the plugin
@@ -732,9 +732,9 @@ msgid "Compact"
 msgstr "कॉम्पैक्ट"
 
 #. translators: %d: Number of unanswered messages
-#: public/inc/class-stcfq-admin-bar.php:16
+#: public/inc/class-stcfq-admin-bar.php:39
 #, php-format
-msgid "%d Message not answered."
+msgid "%d Message not answered"
 msgid_plural "%d Messages not answered"
 msgstr[0] ""
 msgstr[1] ""

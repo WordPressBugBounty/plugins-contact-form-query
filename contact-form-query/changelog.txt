@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.9.7 =
+* Added support for SVG admin bar icon with backward compatibility for older WordPress versions.
+* Code improvements.
+
 = 1.9.6 =
 * Improvement: Cloudflare Turnstile now loads automatically with the form instead of rendering on submit click.
 
