@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.9.8 =
+* Tested up to 7.2.
+
 = 1.9.7 =
 * Added support for SVG admin bar icon with backward compatibility for older WordPress versions.
 * Code improvements.
